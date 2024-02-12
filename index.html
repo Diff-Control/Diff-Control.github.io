@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="α-MDF: An Attention-based Multimodal Differentiable Filter for Robot State Estimation">
+  <meta name="keywords" content="Differentiable Filters Sensor Fusion Multimodal Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>&alpha;-MDF: An Attention-based Multimodal Differentiable Filter for Robot State Estimation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/irl_lab.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://www.xiao-liu.me/">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/ir-lab/DEnKF">
+              Differentiable Ensemble Kalman Filter (DEnKF)
+            </a>
+            <a class="navbar-item" href="https://github.com/ir-lab/soft_robot_DEnKF">
+              DEnKF + soft robot and spatio-temporal embedding
+            </a>
+            <!-- <a class="navbar-item" href="https://latentfusion.github.io">
+              LatentFusion
+            </a>
+            <a class="navbar-item" href="https://photoshape.github.io">
+              PhotoShape
+            </a> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">&alpha;-MDF: An Attention-based Multimodal Differentiable Filter
+              for Robot State Estimation</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://www.xiao-liu.me/">Xiao Liu</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="http://yifanzhou.com/">Yifan Zhou</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="http://www.brain.kyutech.ac.jp/~ikemoto/">Shuhei Ikemoto</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="http://henibenamor.weebly.com/">Heni Ben Amor</a><sup>1</sup>,
+              </span>
+              <!-- <span class="author-block">
+                <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
+              </span> -->
+              <!-- <span class="author-block">
+                <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+              </span> -->
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup><a
+                  href="https://interactive-robotics.engineering.asu.edu/">Interactive Robotics Lab</a>, Arizona State
+                University,</span>
+              <span class="author-block"><sup>2</sup>Kyushu Institute of Technology</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://openreview.net/forum?id=0hQMcWfjG9"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- <span class="link-block">
+                  <a href="https://arxiv.org/abs/2011.12948" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span> -->
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=OdBMquRUTdU"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/ir-lab/alpha-MDF"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Dataset Link.
+                <span class="link-block">
+                  <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="far fa-images"></i>
+                    </span>
+                    <span>Data</span>
+                  </a> -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video id="teaser" autoplay muted loop playsinline height="10%">
+          <source src="./static/videos/overview-2.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          α-MDF is an attention-based multimodal differentiable filter framework, the framework establishes the link
+          between <strong>modern neural attention</strong> and <strong>Kalman Filters</strong> for robot state
+          estimation.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/steve.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/chair-tp.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/shiba.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/fullbody.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-blueshirt">
+            <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/blueshirt.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-mask">
+            <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/mask.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-coffee">
+            <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/coffee.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-toby">
+            <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/toby2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Differentiable Filters are recursive Bayesian estimators that derive the state transition and measurement
+              models from data alone. Their data-driven nature eschews the need for explicit analytical models, while
+              remaining algorithmic components of the filtering process intact. As a result, the gain mechanism -- a
+              critical component of the filtering process -- remains non-differentiable and cannot be adjusted to the
+              specific nature of the task or context. In this paper, we propose an attention-based Multimodal
+              Differentiable Filter (α-MDF) which utilizes modern attention mechanisms to learn multimodal latent
+              representations. Unlike
+              previous differentiable filter frameworks,
+              α-MDF substitutes the traditional gain, e.g., the Kalman gain, with a neural attention mechanism. The
+              approach generates specialized, context-dependent gains that can effectively combine multiple input
+              modalities and observed variables. We validate
+              α-MDF on a diverse set of robot state estimation tasks in real world and simulation. Our results show
+              α-MDF achieves significant reductions in state estimation errors, demonstrating nearly 4-fold improvements
+              compared to state-of-the-art sensor fusion strategies for rigid body robots. Additionally, the
+              α-MDF consistently outperforms differentiable filter baselines by up to 45% in soft robotics tasks.
+            </p>
+            <!-- <p>
+              We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
+              photos/videos into deformable NeRF
+              models that allow for photorealistic renderings of the subject from arbitrary
+              viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
+              using a
+              rig with two mobile phones that take time-synchronized photos, yielding train/validation
+              images of the same pose at different viewpoints. We show that our method faithfully
+              reconstructs non-rigidly deforming scenes and reproduces unseen views with high
+              fidelity.
+            </p> -->
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/OdBMquRUTdU" frameborder="0" allow="autoplay; encrypted-media"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <!--/ Paper video. -->
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+
+      <!-- method. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Method</h2>
+
+          <!-- Interpolating. -->
+          <h3 class="title is-4">Multimodal Differentiable Filters</h3>
+          <div class="content has-text-justified">
+            <p>
+              We utilize an ensemble method for Bayesian filtering wherein each ensemble member represents a compact
+              robot state. Figure below shows the procedural steps of how this compact representation,
+              known as the latent state, is obtained and get updated. The filtering process includes two essential
+              steps, namely <i>prediction</i> and <i>update</i>, both of which are also implemented through neural
+              networks. Most importantly, we replace the Kalman gain step with an attention mechanism, which is trained
+              to weigh observations against predictions based on the current context. Additionally, we demonstrate that
+              attention can be used to balance and weigh different modalities, e.g., video, depth, inertial
+              measurements, against each other. We will see that both steps can be naturally integrated into a single
+              <i>attention gain</i> (AG) module.
+            </p>
+            <img src="./static/videos/method_details.png" class="interpolation-image"
+              alt="Interpolate start reference image." />
+          </div>
+
+
+          <!-- Attention Gain -->
+          <h3 class="title is-4">Attention Gain</h3>
+          <div class="content has-text-justified">
+            <p>
+              The proposed <i>attention gain (AG)</i> module eliminates the need for an explicit
+              observation model and can directly utilize high-dimensional features. By leveraging this approach, our
+              framework enables a more flexible and efficient integration of measurements without the explicit
+              requirement of a mapping function from the state to the measurement domain. Instead of using one sensor
+              encoder, we use multiple sensor encoders to learn latent observations from each modality.
+            </p>
+            <img src="./static/videos/attention_gain.png" class="interpolation-image"
+              alt="Interpolate start reference image." />
+            <p>
+              Left: manipulation in a simulated environment with modalities [RGB, Depth, Joint], and right: real robot
+              manipulation with modalities [RGB, Joint]. The attention maps indicate the attention weights assigned to
+              each modality during model
+              inference. In the visualization, regions in red correspond to low attention values, while those in blue
+              indicate high attention values.
+            </p>
+          </div>
+          <!--/ Attention Gain -->
+
+
+          <!-- result -->
+          <h3 class="title is-4">Results</h3>
+          <div class="content has-text-justified">
+            <p>
+              Predicted joint angle trajectories and the corresponding accumulated attention values for each modality.
+              (a) represents the results attained from the actual robot, whereas (b) illustrates attention values for
+              all modalities both with and without masking certain modalities.
+            </p>
+            <img src="./static/videos/result-UR5.png" class="interpolation-image"
+              alt="Interpolate start reference image." />
+          </div>
+          <!--/ result -->
+
+        </div>
+      </div>
+      <!--/ method. -->
+      <div class="columns is-centered has-text-centered">
+        <!-- Regid Body motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Rigid Body Motion</h2>
+            <p>
+              We use α-MDF for monitoring the state of a UR5 robot during tabletop arrangement tasks.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/UR5.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Regid Body motion -->
+
+        <!-- Soft robot motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Soft Robot Dynamics</h2>
+            <p>
+              This experiment involves implementing the
+              α-MDF to model the dynamics of a soft robot system.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Tensegrity.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ soft robot motion -->
+      </div>
+      <!--/ Matting. -->
+
+
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Related Links</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              To assess the performance and effectiveness of our approach, we conducted comparative evaluations against
+              differentiable filter baselines and sensor fusion baselines.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2012.14313">How to Train Your Differentiable Filter
+              </a> introduces general approcahes for building differentiable filter frameworks.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/1805.11122">Differentiable Particle Filters</a> introduces
+              end-to-end learning with sampling method intact for filtering.
+            </p>
+            <p>
+              Various sensor fusion strategies, including unimodal fusion and crossmodal fusion, are thoroughly
+              discussed in <a href="https://arxiv.org/abs/2010.13021">Multimodal Sensor Fusion with Differentiable
+                Filters</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Concurrent Work. -->
+
+    </div>
+  </section>
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{liu2023alphamdf,
+        title = {\alpha-MDF: An Attention-based Multimodal Differentiable Filter for Robot State Estimation},
+        author = {Liu, Xiao and Zhou, Yifan and Ikemoto, Shuhei and Amor, Heni Ben},
+        booktitle = {7th Annual Conference on Robot Learning},
+        year = {2023},
+        url = {https://openreview.net/forum?id=0hQMcWfjG9},
+      }</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/multimodal_learning_for_CoRL_2023.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/liuxiao1468" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              This means you are free to borrow the <a href="https://github.com/Alpha-MDF/Alpha-MDF.github.io">source
+                code</a> of this website,
+              we just ask that you link back to this page in the footer.
+              Please remember to remove the analytics code included in the header of the website which
+              you do not want on your website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
