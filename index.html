@@ -51,7 +51,7 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-        <a class="navbar-item" href="https://www.xiao-liu.me/">
+        <a class="navbar-item" href="https://diff-control.github.io/">
           <span class="icon">
             <i class="fas fa-home"></i>
           </span>
@@ -62,12 +62,12 @@
             More Research
           </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item" href="https://github.com/ir-lab/DEnKF">
+            <!-- <a class="navbar-item" href="https://github.com/ir-lab/DEnKF">
               Differentiable Ensemble Kalman Filter (DEnKF)
             </a>
             <a class="navbar-item" href="https://github.com/ir-lab/soft_robot_DEnKF">
               DEnKF + soft robot and spatio-temporal embedding
-            </a>
+            </a> -->
             <!-- <a class="navbar-item" href="https://latentfusion.github.io">
               LatentFusion
             </a>
@@ -97,7 +97,8 @@
               <span class="author-block">
                 <a href="https://faweigend.com/">Fabian Weigend </a><sup>1</sup>,
               </span>
-              <span class="author-block">Shubham Sonawani <sup>1</sup>,
+              <span class="author-block">
+                <a href="https://www.sdsonawani.com/">Shubham Sonawani</a> <sup>1</sup>,
               </span>
               <span class="author-block">
                 <a href="http://www.brain.kyutech.ac.jp/~ikemoto/">Shuhei Ikemoto</a><sup>2</sup>,
@@ -365,31 +366,67 @@
 
 
           <!-- result -->
-          <h3 class="title is-4">Results</h3>
+          <h3 class="title is-4">Tasks</h3>
           <div class="content has-text-justified">
             <p>
-              Predicted joint angle trajectories and the corresponding accumulated attention values for each modality.
-              (a) represents the results attained from the actual robot, whereas (b) illustrates attention values for
-              all modalities both with and without masking certain modalities.
+            <ul>
+              <li><strong>Language Conditioned kitchen tasks</strong>: This task is designed to resemble several tasks
+                in the kitchen scenario. </li>
+              <li><strong>Open Lid task</strong>: this task is in the kitchen scene with a high-precision requirement.
+              </li>
+              <li><strong>Duck Scooping task</strong>: we explore the interaction between the policy and fluid dynamics.
+              </li>
+              <li><strong>Drum Beats (3 hits) task</strong>: this task is specifically designed for robots to learn
+                periodic
+                motions</li>
+            </ul>
+
             </p>
-            <img src="./static/videos/result-UR5.png" class="interpolation-image"
-              alt="Interpolate start reference image." />
+            <img src="./static/videos/task.png" class="interpolation-image" alt="Interpolate start reference image." />
+          </div>
+          <!--/ result -->
+
+          <!-- result -->
+          <h3 class="title is-4">Evaluations</h3>
+          <div class="content has-text-justified">
+            <p>
+            <ul>
+              <li><strong>Image-BC</strong>: This baseline adopts an image-to-action agent
+                framework, similar to BC-Z, it is built upon ResNet-18 backbone and employs FiLM for conditioning using
+                CLIP language features. </li>
+              <li><strong>ModAttn</strong>: This method employs a transformer-style neural network and uses a modular
+                structure to address each sub-aspects of the task via neural attention, it requires a human expert
+                correctly identifies components and subtasks to each task.
+              </li>
+              <li><strong>BC-Z LSTM</strong>: This baseline represents a stateful policy inspired by the BC-Z
+                architecture. The incorporation of a prior input is achieved by fusing the prior actions and language
+                conditions using MLP and LSTM layers.
+              </li>
+              <li><strong>Diffusion Policy</strong>: This baseline is a standard diffusion policy.</li>
+            </ul>
+
+            </p>
+            <center><img src="./static/videos/Table.png" width="800" height="600" class="interpolation-image"
+                alt="Interpolate start reference image." /></center>
           </div>
           <!--/ result -->
 
         </div>
       </div>
+
+
       <!--/ method. -->
       <div class="columns is-centered has-text-centered">
         <!-- Regid Body motion -->
         <div class="column">
           <div class="content">
-            <h2 class="title is-3">Rigid Body Motion</h2>
+            <h2 class="title is-3">Language-Conditioned</h2>
             <p>
-              We use α-MDF for monitoring the state of a UR5 robot during tabletop arrangement tasks.
+              Among all the baseline methods, Diff-Control achieves the highest success rate with 92%, which is 5%,
+              64%, and 32% higher than diffusion policy, ModAttn, and Image-BC, respectively.
             </p>
             <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/UR5.mp4" type="video/mp4">
+              <source src="./static/videos/tomato_to_sink.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -398,13 +435,51 @@
         <!-- Soft robot motion -->
         <div class="column">
           <div class="content">
-            <h2 class="title is-3">Soft Robot Dynamics</h2>
+            <h2 class="title is-3">High-Precision</h2>
             <p>
-              This experiment involves implementing the
-              α-MDF to model the dynamics of a soft robot system.
+              Diff-Control policy is able to achieve this high-precision task with 80% success rate over 25 trials,
+              Diff-Control policy demonstrated superior performance and does not show the tendency to overfit on idle
+              actions.
             </p>
             <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/Tensegrity.mp4" type="video/mp4">
+              <source src="./static/videos/Open_lid.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ soft robot motion -->
+      </div>
+      <!--/ Matting. -->
+
+
+      <!--/ method. -->
+      <div class="columns is-centered has-text-centered">
+        <!-- Regid Body motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Dynamic Environment</h2>
+            <p>
+              Diff-Control policy achieved a commendable success rate of 84% while performing in this dynamic task.
+              It demonstrated a tendency to scoop the duck out in a single
+              attempt, reaching a low enough position for accurate scooping.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/duck.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Regid Body motion -->
+
+        <!-- Soft robot motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Periodic Motion</h2>
+            <p>
+              Diff-Control achieving the highest success rate of 72%, it is able to predict the direction of actions
+              correctly (upward or downward) and knows when to halt the actions. The stateful behavior is beneficial for
+              robot learning periodic motions.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/drum.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -421,20 +496,20 @@
           <div class="content has-text-justified">
             <p>
               To assess the performance and effectiveness of our approach, we conducted comparative evaluations against
-              differentiable filter baselines and sensor fusion baselines.
+              robot learning policy baselines.
             </p>
             <p>
-              <a href="https://arxiv.org/abs/2012.14313">How to Train Your Differentiable Filter
-              </a> introduces general approcahes for building differentiable filter frameworks.
+              <a href="https://diffusion-policy.cs.columbia.edu/">Diffusion Policy
+              </a> serves as the base policy in proposed framework, similar design decisions has been made referring to
+              the visual encodings, hyper-parameters, etc.
             </p>
             <p>
-              <a href="https://arxiv.org/abs/1805.11122">Differentiable Particle Filters</a> introduces
-              end-to-end learning with sampling method intact for filtering.
+              We adapt <a href="https://github.com/lllyasviel/ControlNet">ControlNet</a> sturcture, expecially the zero
+              convolusion layers to create Diff-Control in robot trajectory domain.
             </p>
             <p>
-              Various sensor fusion strategies, including unimodal fusion and crossmodal fusion, are thoroughly
-              discussed in <a href="https://arxiv.org/abs/2010.13021">Multimodal Sensor Fusion with Differentiable
-                Filters</a>.
+              Besides diffusion policy, we compared <a href="https://arxiv.org/abs/2202.02005">Image-BC/BC-Z</a>
+              baseline, the <a href="https://arxiv.org/pdf/2212.04573.pdf">ModAttn</a> baseline, and BC-Z LSTM.
             </p>
           </div>
         </div>
@@ -448,13 +523,8 @@
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@inproceedings{liu2023alphamdf,
-        title = {\alpha-MDF: An Attention-based Multimodal Differentiable Filter for Robot State Estimation},
-        author = {Liu, Xiao and Zhou, Yifan and Ikemoto, Shuhei and Amor, Heni Ben},
-        booktitle = {7th Annual Conference on Robot Learning},
-        year = {2023},
-        url = {https://openreview.net/forum?id=0hQMcWfjG9},
-      }</code></pre>
+      <pre><code>incoming
+      </code></pre>
     </div>
   </section>
 
@@ -478,7 +548,7 @@
                 Commons Attribution-ShareAlike 4.0 International License</a>.
             </p>
             <p>
-              This means you are free to borrow the <a href="https://github.com/Alpha-MDF/Alpha-MDF.github.io">source
+              This means you are free to borrow the <a href="https://diff-control.github.io/">source
                 code</a> of this website,
               we just ask that you link back to this page in the footer.
               Please remember to remove the analytics code included in the header of the website which
