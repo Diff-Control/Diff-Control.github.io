@@ -6,7 +6,7 @@
   <meta name="description" content="Diff-Control: Stateful Action Diffusion Policy for Imitation Learning">
   <meta name="keywords" content="Diffusion Model, Imitation Learning, Stateful Policy">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>&alpha;-MDF: An Attention-based Multimodal Differentiable Filter for Robot State Estimation</title>
+  <title>Diff-Control: A Stateful Diffusion-based Policy for Imitation Learning</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -87,13 +87,18 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">&alpha;-MDF: An Attention-based Multimodal Differentiable Filter
-              for Robot State Estimation</h1>
+            <h1 class="title is-1 publication-title">Diff-Control: A Stateful Diffusion-based Policy for Imitation
+              Learning</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://www.xiao-liu.me/">Xiao Liu</a><sup>1</sup>,</span>
               <span class="author-block">
                 <a href="http://yifanzhou.com/">Yifan Zhou</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://faweigend.com/">Fabian Weigend </a><sup>1</sup>,
+              </span>
+              <span class="author-block">Shubham Sonawani <sup>1</sup>,
+              </span>
               <span class="author-block">
                 <a href="http://www.brain.kyutech.ac.jp/~ikemoto/">Shuhei Ikemoto</a><sup>2</sup>,
               </span>
@@ -114,7 +119,7 @@
             <div class="is-size-5 publication-authors">
               <span class="author-block"><sup>1</sup><a
                   href="https://interactive-robotics.engineering.asu.edu/">Interactive Robotics Lab</a>, Arizona State
-                University,</span>
+                University</span>
               <span class="author-block"><sup>2</sup>Kyushu Institute of Technology</span>
             </div>
 
@@ -179,13 +184,17 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
+
+        <!-- <img src="./static/videos/teaser.png" class="interpolation-image" alt="Interpolate start reference image." /> -->
+
         <video id="teaser" autoplay muted loop playsinline height="10%">
-          <source src="./static/videos/overview-2.mp4" type="video/mp4">
+          <source src="./static/videos/task_sequence.mp4" type="video/mp4">
         </video>
         <h2 class="subtitle has-text-centered">
-          α-MDF is an attention-based multimodal differentiable filter framework, the framework establishes the link
-          between <strong>modern neural attention</strong> and <strong>Kalman Filters</strong> for robot state
-          estimation.
+
+          <strong>Diff-Control Policy</strong> incorporates ControlNet, functioning as a transition model that captures
+          temporal transitions within the action space to ensure action consistency.
+
         </h2>
       </div>
     </div>
@@ -250,21 +259,17 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Differentiable Filters are recursive Bayesian estimators that derive the state transition and measurement
-              models from data alone. Their data-driven nature eschews the need for explicit analytical models, while
-              remaining algorithmic components of the filtering process intact. As a result, the gain mechanism -- a
-              critical component of the filtering process -- remains non-differentiable and cannot be adjusted to the
-              specific nature of the task or context. In this paper, we propose an attention-based Multimodal
-              Differentiable Filter (α-MDF) which utilizes modern attention mechanisms to learn multimodal latent
-              representations. Unlike
-              previous differentiable filter frameworks,
-              α-MDF substitutes the traditional gain, e.g., the Kalman gain, with a neural attention mechanism. The
-              approach generates specialized, context-dependent gains that can effectively combine multiple input
-              modalities and observed variables. We validate
-              α-MDF on a diverse set of robot state estimation tasks in real world and simulation. Our results show
-              α-MDF achieves significant reductions in state estimation errors, demonstrating nearly 4-fold improvements
-              compared to state-of-the-art sensor fusion strategies for rigid body robots. Additionally, the
-              α-MDF consistently outperforms differentiable filter baselines by up to 45% in soft robotics tasks.
+              While imitation learning provides a simple and effective framework for policy learning, how to acquire
+              consistent action during robot execution remains a challenging task. Existing approaches primarily focus
+              on either modifying the action representation at data curation stage or altering the model itself, both of
+              which do not fully address the scalability of consistent action generation. To overcome this limitation,
+              we propose the Diff-Control policy, which leverages a diffusion-based model to learn action representation
+              from a state-space modeling perspective. This statefulness is achieved through a Bayesian formulation,
+              instead of the naive fusion of stateful features. Our experimental results demonstrate the significance of
+              incorporating action statefulness in policy learning, where Diff-Control shows improved performance across
+              various tasks. Specifically, Diff-Control achieves an average success rate of 72% and 84% on stateful
+              and dynamic tasks, respectively. Notably, Diff-Control also shows consistent performance in the presence
+              of perturbations, outperforming other state-of-the-art methods that falter under similar conditions.
             </p>
             <!-- <p>
               We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
@@ -282,8 +287,10 @@
       </div>
       <!--/ Abstract. -->
 
+
+
       <!-- Paper video. -->
-      <div class="columns is-centered has-text-centered">
+      <!-- <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Video</h2>
           <div class="publication-video">
@@ -291,7 +298,7 @@
               allowfullscreen></iframe>
           </div>
         </div>
-      </div>
+      </div> -->
       <!--/ Paper video. -->
     </div>
   </section>
@@ -304,45 +311,54 @@
       <!-- method. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-full-width">
-          <h2 class="title is-3">Method</h2>
+          <h2 class="title is-3">Diff-Control Policy</h2>
 
           <!-- Interpolating. -->
-          <h3 class="title is-4">Multimodal Differentiable Filters</h3>
+          <h3 class="title is-4">Overview</h3>
           <div class="content has-text-justified">
             <p>
-              We utilize an ensemble method for Bayesian filtering wherein each ensemble member represents a compact
-              robot state. Figure below shows the procedural steps of how this compact representation,
-              known as the latent state, is obtained and get updated. The filtering process includes two essential
-              steps, namely <i>prediction</i> and <i>update</i>, both of which are also implemented through neural
-              networks. Most importantly, we replace the Kalman gain step with an attention mechanism, which is trained
-              to weigh observations against predictions based on the current context. Additionally, we demonstrate that
-              attention can be used to balance and weigh different modalities, e.g., video, depth, inertial
-              measurements, against each other. We will see that both steps can be naturally integrated into a single
-              <i>attention gain</i> (AG) module.
+              In computer vision, <i>ControlNet</i> has demonstrated significant utility in various applications
+              involving
+              image and video generation using Stable Diffusion model with learned control. ControlNet acts as a
+              framework that accepts additional control inputs or prior conditions and utilizes them to generate images
+              or video sequences that align with the specified control input. Our method extends the application of
+              ControlNet from image generation to action generation in the domain of robotics, and we utilize a
+              <i>Bayesian
+                formulation</i> to bridge the gap between standalone policies and state space modeling as shown in
+              Figure
+              below. We find that proposed Diff-Control policy effectively maintains stateful behavior by conditioning
+              its actions on prior actions, resulting in consistent action generation.
             </p>
-            <img src="./static/videos/method_details.png" class="interpolation-image"
+            <img src="./static/videos/controlnet.png" class="interpolation-image"
               alt="Interpolate start reference image." />
+            <p>
+              Diff-Control operates by generating a sequence of actions while incorporating conditioning on previously
+              generated actions. In this example, the Diff-Control policy is depicted executing the "Open Lid" task. For
+              instance, in the second sub-figure,
+              the blue trajectory represents previous action trajectory, denoted as
+              <strong>a<sub>[W<sub>t</sub>]</sub></strong>, while
+              the red trajectory
+              displays the newly generated sequence of actions, denoted as
+              <strong>a<sub>[W<sub>t-h</sub>]</sub></strong>.
+            </p>
           </div>
 
 
           <!-- Attention Gain -->
-          <h3 class="title is-4">Attention Gain</h3>
+          <h3 class="title is-4">Stateful behavior</h3>
           <div class="content has-text-justified">
             <p>
-              The proposed <i>attention gain (AG)</i> module eliminates the need for an explicit
-              observation model and can directly utilize high-dimensional features. By leveraging this approach, our
-              framework enables a more flexible and efficient integration of measurements without the explicit
-              requirement of a mapping function from the state to the measurement domain. Instead of using one sensor
-              encoder, we use multiple sensor encoders to learn latent observations from each modality.
+              We find that proposed Diff-Control policy effectively maintains stateful behavior by conditioning its
+              actions on prior actions, resulting in consistent action generation. A simple example showcasing this
+              behavior is depicted in the figure below, where each policy is learning the approximation of a cosine
+              function. Diff-Control policy demonstrates its capability to incorporate temporal conditioning without
+              generating multiple modes compare to state-of-the-art methods.
             </p>
-            <img src="./static/videos/attention_gain.png" class="interpolation-image"
-              alt="Interpolate start reference image." />
+            <center><img src="./static/videos/sine.png" width="600" height="500"></center>
             <p>
-              Left: manipulation in a simulated environment with modalities [RGB, Depth, Joint], and right: real robot
-              manipulation with modalities [RGB, Joint]. The attention maps indicate the attention weights assigned to
-              each modality during model
-              inference. In the visualization, regions in red correspond to low attention values, while those in blue
-              indicate high attention values.
+              At a given state, Diff-Control policy can utilize prior trajectories to approximate the desired function.
+              Diffusion policy learns both modes but fails on generating the correct trajectory cosistently,
+              Image-BC/BC-Z fails to generate the correct trajectory.
             </p>
           </div>
           <!--/ Attention Gain -->
