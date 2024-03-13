@@ -306,8 +306,83 @@
   </section>
 
 
+
+
   <section class="section">
     <div class="container is-max-desktop">
+
+      <!--/ method. -->
+      <div class="columns is-centered has-text-centered">
+        <!-- Regid Body motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Language-Conditioned</h2>
+            <p>
+              Among all the baseline methods, Diff-Control achieves the highest success rate with 92%, which is 5%,
+              64%, and 32% higher than diffusion policy, ModAttn, and Image-BC, respectively.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/tomato_fuse.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Regid Body motion -->
+
+        <!-- Soft robot motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">High-Precision</h2>
+            <p>
+              Diff-Control policy is able to achieve this high-precision task with 80% success rate over 25 trials,
+              Diff-Control policy demonstrated superior performance and does not show the tendency to overfit on idle
+              actions.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Open_lid.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ soft robot motion -->
+      </div>
+      <!--/ Matting. -->
+
+
+      <!--/ method. -->
+      <div class="columns is-centered has-text-centered">
+        <!-- Regid Body motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Dynamic Environment</h2>
+            <p>
+              Diff-Control policy achieves a commendable success rate of 84% while performing in this dynamic task.
+              It demonstrates a tendency to scoop the duck out in a single
+              attempt, reaching a low enough position for accurate scooping.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/duck.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Regid Body motion -->
+
+        <!-- Soft robot motion -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-3">Periodic Motion</h2>
+            <p>
+              Diff-Control achieves the highest success rate of 72%, it is able to predict the direction of actions
+              correctly (upward or downward) and knows when to halt the actions. The stateful behavior is beneficial for
+              robot learning periodic motions.
+            </p>
+            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/drum.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ soft robot motion -->
+      </div>
+      <!--/ Matting. -->
+
 
 
       <!-- method. -->
@@ -416,77 +491,7 @@
       </div>
 
 
-      <!--/ method. -->
-      <div class="columns is-centered has-text-centered">
-        <!-- Regid Body motion -->
-        <div class="column">
-          <div class="content">
-            <h2 class="title is-3">Language-Conditioned</h2>
-            <p>
-              Among all the baseline methods, Diff-Control achieves the highest success rate with 92%, which is 5%,
-              64%, and 32% higher than diffusion policy, ModAttn, and Image-BC, respectively.
-            </p>
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/tomato_fuse.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <!--/ Regid Body motion -->
 
-        <!-- Soft robot motion -->
-        <div class="column">
-          <div class="content">
-            <h2 class="title is-3">High-Precision</h2>
-            <p>
-              Diff-Control policy is able to achieve this high-precision task with 80% success rate over 25 trials,
-              Diff-Control policy demonstrated superior performance and does not show the tendency to overfit on idle
-              actions.
-            </p>
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/Open_lid.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <!--/ soft robot motion -->
-      </div>
-      <!--/ Matting. -->
-
-
-      <!--/ method. -->
-      <div class="columns is-centered has-text-centered">
-        <!-- Regid Body motion -->
-        <div class="column">
-          <div class="content">
-            <h2 class="title is-3">Dynamic Environment</h2>
-            <p>
-              Diff-Control policy achieves a commendable success rate of 84% while performing in this dynamic task.
-              It demonstrates a tendency to scoop the duck out in a single
-              attempt, reaching a low enough position for accurate scooping.
-            </p>
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/duck.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <!--/ Regid Body motion -->
-
-        <!-- Soft robot motion -->
-        <div class="column">
-          <div class="content">
-            <h2 class="title is-3">Periodic Motion</h2>
-            <p>
-              Diff-Control achieves the highest success rate of 72%, it is able to predict the direction of actions
-              correctly (upward or downward) and knows when to halt the actions. The stateful behavior is beneficial for
-              robot learning periodic motions.
-            </p>
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/drum.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <!--/ soft robot motion -->
-      </div>
-      <!--/ Matting. -->
 
 
       <!-- Concurrent Work. -->
