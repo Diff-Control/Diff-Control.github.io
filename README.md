@@ -1,6 +1,6 @@
-# Diff-COntrol
+# Diff-Control
 
-This is the repository that contains source code for the [α-MDF](https://diff-control.github.io/).
+This is the repository that contains source code for the [Diff-Control](https://diff-control.github.io/).
 
 If you find Diff-COntrol useful for your work please cite:
 ```
