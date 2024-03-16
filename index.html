@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Diff-Control: Stateful Action Diffusion Policy for Imitation Learning">
+  <meta name="description" content="Diff-Control: A Stateful Diffusion-based Policy for Imitation Learning">
   <meta name="keywords" content="Diffusion Model, Imitation Learning, Stateful Policy">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Diff-Control: A Stateful Diffusion-based Policy for Imitation Learning</title>
@@ -259,19 +259,18 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              While imitation learning provides a simple and effective framework for policy learning, how to acquire
+              While imitation learning provides a simple and effective framework for policy learning, acquiring
               consistent action during robot execution remains a challenging task. Existing approaches primarily focus
               on either modifying the action representation at data curation stage or altering the model itself, both of
               which do not fully address the scalability of consistent action generation. To overcome this limitation,
-              we propose the <strong>Diff-Control</strong> policy, which leverages a diffusion-based model to learn
-              action representation
-              from a state-space modeling perspective. This statefulness is achieved through a Bayesian formulation,
-              instead of the naive fusion of stateful features. Our experimental results demonstrate the significance of
-              incorporating <strong>action statefulness</strong> in policy learning, where Diff-Control shows improved
-              performance across
-              various tasks. Specifically, Diff-Control achieves an average success rate of 72% and 84% on stateful
-              and dynamic tasks, respectively. Notably, Diff-Control also shows consistent performance in the presence
-              of perturbations, outperforming other state-of-the-art methods that falter under similar conditions.
+              we introduce the <strong>Diff-Control</strong> policy, which utilizes a diffusion-based model to learn
+              action representation from a state-space modeling viewpoint. We demonstrate that diffusion-based policies
+              can acquire statefulness through a Bayesian formulation facilitated by ControlNet, leading to improved
+              robustness and success rates. Our experimental results demonstrate the significance of incorporating
+              action statefulness in policy learning, where Diff-Control shows improved performance across various
+              tasks. Specifically, Diff-Control achieves an average success rate of 72% and 84% on stateful and
+              dynamic tasks, respectively. Notably, Diff-Control also shows consistent performance in the presence of
+              perturbations, outperforming other state-of-the-art methods that falter under similar conditions.
             </p>
             <!-- <p>
               We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
@@ -394,17 +393,12 @@
           <h3 class="title is-4">Overview</h3>
           <div class="content has-text-justified">
             <p>
-              In computer vision, <i>ControlNet</i> has demonstrated significant utility in various applications
-              involving
-              image and video generation using Stable Diffusion model with learned control. ControlNet acts as a
-              framework that accepts additional control inputs or prior conditions and utilizes them to generate images
-              or video sequences that align with the specified control input. Our method extends the application of
-              ControlNet from image generation to action generation in the domain of robotics, and we utilize a
-              <i>Bayesian
-                formulation</i> to bridge the gap between standalone policies and state space modeling as shown in
-              Figure
-              below. We find that proposed Diff-Control policy effectively maintains stateful behavior by conditioning
-              its actions on prior actions, resulting in consistent action generation.
+              The key objective of Diff-Control is to learn how to incorporate state information into the
+              decision-making process of diffusion policies. In computer vision, ControlNet is used within stable
+              diffusion models to enable additional control inputs or extra conditions when generating images or video
+              sequences. Our method extends the basic principle of ControlNet from image generation to action
+              generation, and use it as a state-space model in which the internal state of the system affects the output
+              of the policy in conjunction with observations (camera input) and human language instructions.
             </p>
             <img src="./static/videos/controlnet.png" class="interpolation-image"
               alt="Interpolate start reference image." />
@@ -426,10 +420,13 @@
           <div class="content has-text-justified">
             <p>
               We find that proposed Diff-Control policy effectively maintains stateful behavior by conditioning its
-              actions on prior actions, resulting in consistent action generation. A simple example showcasing this
-              behavior is depicted in the figure below, where each policy is learning the approximation of a cosine
-              function. Diff-Control policy demonstrates its capability to incorporate temporal conditioning without
-              generating multiple modes compare to state-of-the-art methods.
+              actions on prior actions, resulting in consistent action generation. An illustrative example for this
+              behavior is shown below: a policy learning to approximate a cosine function. Given single observation at
+              time $t$, stateless policies encounter difficulties in producing accurate generating the continuation of
+              trajectories. Due to ambiguities, diffusion policy tends to learn multiple modes. By contrast,
+              Diff-Control integrates temporal conditioning allowing it to generate trajectories by considering past
+              states. To this end, the proposed approach leverages recent ControlNet architectures to ensure temporal
+              consistency in robot action generation.
             </p>
             <center><img src="./static/videos/sine.png" width="600" height="500"></center>
             <p>
