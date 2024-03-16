@@ -1,16 +1,10 @@
-# α-MDF
+# Diff-COntrol
 
-This is the repository that contains source code for the [α-MDF](https://alpha-mdf.github.io/).
+This is the repository that contains source code for the [α-MDF](https://diff-control.github.io/).
 
-If you find Nerfies useful for your work please cite:
+If you find Diff-COntrol useful for your work please cite:
 ```
-@inproceedings{liu2023alphamdf,
-        title = {\alpha-MDF: An Attention-based Multimodal Differentiable Filter for Robot State Estimation},
-        author = {Liu, Xiao and Zhou, Yifan and Ikemoto, Shuhei and Amor, Heni Ben},
-        booktitle = {7th Annual Conference on Robot Learning},
-        year = {2023},
-        url = {https://openreview.net/forum?id=0hQMcWfjG9},
-      }
+to be announced
 ```
 
 # Website License
